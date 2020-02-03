@@ -31,6 +31,14 @@ class TodoList extends Component {
       input: e.target.value
     });
   };
+  handleDelete = indexToDelete => {
+    const editedTodos = [...this.state.todos];
+    editedTodos.splice(indexToDelete, 1);
+
+    this.setState({
+      todos: editedTodos
+    });
+  };
 
   render() {
     return (
@@ -45,7 +53,20 @@ class TodoList extends Component {
         </form>
         <ul>
           {this.state.todos.map((item, index) => (
-            <li key={index}>{item.content}</li>
+            <li key={index}>
+              {item.content}
+              <span className="delete-container">
+                <button
+                  type="button"
+                  onClick={() => {
+                    this.handleDelete(index);
+                  }}
+                  className="delete"
+                >
+                  x
+                </button>
+              </span>
+            </li>
           ))}
         </ul>
       </>
